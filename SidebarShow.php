@@ -68,28 +68,3 @@ function sidebar_shortcode( $atts ) {
     return $output;
 }
 add_shortcode( 'sidebarshow', 'sidebar_shortcode' );
-
-
-
-
-
-function getCurrentYear() {
-	return date('Y');
-}
-add_shortcode('current_year', 'getCurrentYear');
-
-/**
-* This section makes posts in the admin filterable by the author.
-*/
-add_action('restrict_manage_posts', 'filter_by_author');
-function filter_by_author() {
-    $params = array(
-		'show_option_all' => 'All Users',
-        'name' => 'author',
-        'role__in' => array('author','editor','administrator')
-    );
-    if ( isset($_GET['user']) ) {
-        $params['selected'] = $_GET['user'];
-    }
-    wp_dropdown_users( $params );
-}
